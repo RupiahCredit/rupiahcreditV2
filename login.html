@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Daftar Akun</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="form-container">
+        <h1>Login & Daftar Akun</h1>
+
+        <!-- Menu Tab untuk Login dan Daftar -->
+        <div class="tab-menu">
+            <button class="tab-button" id="loginTabBtn">Login</button>
+            <button class="tab-button" id="registerTabBtn">Daftar Akun</button>
+        </div>
+
+        <!-- Form Login -->
+        <div id="loginFormContainer" class="form-content">
+            <form id="loginForm">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="submit">Login</button>
+            </form>
+        </div>
+
+        <!-- Form Daftar Akun -->
+        <div id="registerFormContainer" class="form-content">
+            <form id="registerForm">
+                <label for="newUsername">Username:</label>
+                <input type="text" id="newUsername" name="newUsername" required>
+
+                <label for="newPassword">Password:</label>
+                <input type="password" id="newPassword" name="newPassword" required>
+
+                <label for="confirmPassword">Konfirmasi Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+                <button type="submit">Daftar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>

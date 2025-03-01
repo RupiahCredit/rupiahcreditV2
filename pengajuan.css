@@ -1,0 +1,75 @@
+/* Pengaturan dasar untuk body dan font */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('backroundindex.jpg'); /* Ganti dengan URL gambar background */
+    background-size: cover;
+    background-position: center;
+}
+
+/* Kontainer untuk form pengajuan */
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9); /* Memberikan transparansi agar background tetap terlihat */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling judul */
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Styling form */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Label styling */
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Input, textarea, select styling */
+input, textarea, select {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Button styling */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Link styling */
+a {
+    display: block;
+    text-align: center;
+    color: #333;
+    margin-top: 20px;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

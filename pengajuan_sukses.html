@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengajuan Disetujui</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-image: url('backroundindex.jpg'); /* Ganti dengan URL gambar background */
+            background-size: cover;
+            background-position: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 1); /* Memberikan transparansi untuk kontras dengan background */
+        }
+        h1 {
+            text-align: center;
+            color: green;
+        }
+        p {
+            font-size: 18px;
+        }
+        .detail {
+            margin-bottom: 10px;
+        }
+        .note {
+            color: red;
+            font-weight: bold;
+        }
+        .btn-dashboard {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn-dashboard:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Rupiah Credit</h1>
+        <div id="pengajuanDetail">
+            <!-- Detail pengajuan akan ditampilkan di sini -->
+        </div>
+        <!-- Tombol Dashboard -->
+        <a href="dashboard.html" class="btn-dashboard">Dashboard</a>
+    </div>
+
+    <script>
+        // Ambil data pengguna yang sudah login
+        const loggedInUser = localStorage.getItem('loggedInUser');
+        if (!loggedInUser) {
+            // Jika tidak ada data login, arahkan ke halaman login
+            window.location.href = "login.html";
+        }
+
+        // API URL dan API Key JSONBin
+        const jsonBinApiUrl = "https://api.jsonbin.io/v3/b/67c30dafad19ca34f814956b"; 
+        const jsonBinApiKey = "$2a$10$4IVrueRnTRtCL9ReuE76auMFdZvPf39mSB/tnFMSUu13ufsw6SP8u";
+
+        // Ambil data pengguna dari JSONBin
+        async function getUserData() {
+            try {
+                const response = await fetch(jsonBinApiUrl, {
+                    method: 'GET',
+                    headers: {
+                        'X-Master-Key': jsonBinApiKey,
+                    }
+                });
+
+                const data = await response.json();
+                const users = data.record.users || [];
+                const user = users.find(u => u.username === loggedInUser);
+
+                if (user && user.pengajuan) {
+                    const pengajuan = user.pengajuan[user.pengajuan.length - 1]; // Ambil pengajuan terakhir
+                    document.getElementById("pengajuanDetail").innerHTML = `
+                        <p class="detail">Nama: ${user.username}</p>
+                        <p class="detail">Pinjaman: Rp ${pengajuan.pinjaman}</p>
+                        <p class="detail">Waktu Pinjaman: ${pengajuan.waktuPinjaman} hari</p>
+                        <p class="note">Silahkan lakukan pembayaran biaya administrasi senilai Rp 350.000 ke administrasi layanan untuk menaikan limit dan pencairan pinjaman ke rekening kamu.</p>
+                        <p class="detail">Rekening Pembayaran Biaya Layanan:</p>
+                        <p class="detail">Bank BCA: 1234556</p>
+                        <p class="detail">Nama Admin Layanan: Suharto </p>
+                    `;
+                } else {
+                    alert('Data pengajuan tidak ditemukan!');
+                    window.location.href = "index.html";
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert('Gagal menghubungkan ke server.');
+            }
+        }
+
+        // Menampilkan data pengguna yang sudah login
+        getUserData();
+    </script>
+</body>
+</html>

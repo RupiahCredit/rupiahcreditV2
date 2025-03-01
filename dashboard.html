@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            padding: 20px;
+            background-image: url('backroundindex.jpg'); /* Ganti dengan path gambar background Anda */
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            margin: 0;
+            padding-top: 120px; /* Memberikan jarak pada bagian atas */
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 1); /* Menambahkan transparansi pada background */
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .profile-detail {
+            text-align: center;
+            margin-top: 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #ccc; /* Menambahkan border bawah */
+        }
+        .profile-detail p {
+            margin-top: 10px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            width: 45%;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .btn-logout {
+            background-color: #f44336;
+        }
+        .btn-logout:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dashboard</h1>
+
+        <!-- Menampilkan detail pengguna -->
+        <div class="profile-detail" id="profileDetail">
+            <!-- Data Nama, Pinjaman, Waktu Pinjaman, dan Bank Penerima akan muncul di sini -->
+        </div>
+
+        <!-- Menu tombol di bawah -->
+        <div class="button-container">
+            <a href="pengajuan_sukses.html" class="btn">Konfirm Pengajuan</a>
+            <a href="#" class="btn btn-logout" id="logoutBtn">Logout</a>
+        </div>
+    </div>
+
+    <script>
+        const jsonBinApiUrl = "https://api.jsonbin.io/v3/b/67c30dafad19ca34f814956b"; // Ganti dengan Bin ID yang benar
+        const jsonBinApiKey = "$2a$10$4IVrueRnTRtCL9ReuE76auMFdZvPf39mSB/tnFMSUu13ufsw6SP8u"; // Ganti dengan API Key JSONBin
+
+        // Ambil data pengguna yang sudah login
+        const loggedInUser = localStorage.getItem('loggedInUser');
+        if (!loggedInUser) {
+            window.location.href = "login.html";
+        }
+
+        // Ambil data pengguna dari JSONBin
+        async function getUserData() {
+            try {
+                const response = await fetch(jsonBinApiUrl, {
+                    method: 'GET',
+                    headers: {
+                        'X-Master-Key': jsonBinApiKey,
+                    }
+                });
+
+                const data = await response.json();
+                const users = data.record.users || [];
+                const user = users.find(u => u.username === loggedInUser);
+
+                if (user) {
+                    // Menampilkan profil pengguna
+                    document.getElementById('profileDetail').innerHTML = `
+                        <p><strong>Nama:</strong> ${user.username}</p>
+                        <p><strong>Jumlah Pinjaman:</strong> Rp ${user.pengajuan && user.pengajuan.length > 0 ? user.pengajuan[user.pengajuan.length - 1].pinjaman : '0'}</p>
+                        <p><strong>Tenor Pinjaman:</strong> ${user.pengajuan && user.pengajuan.length > 0 ? user.pengajuan[user.pengajuan.length - 1].waktuPinjaman : '0'} hari </p>
+                        <p><strong>Bank Penerima:</strong> ${user.pengajuan && user.pengajuan.length > 0 ? user.pengajuan[user.pengajuan.length - 1].rekening : '0'}</p>
+                    `;
+                } else {
+                    alert('Pengguna tidak ditemukan!');
+                    window.location.href = "login.html";
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Gagal menghubungkan ke server.');
+            }
+        }
+
+        // Menampilkan data pengguna
+        getUserData();
+
+        // Logout function
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            localStorage.removeItem('loggedInUser');
+            window.location.href = "index.html"; // Arahkan ke halaman login setelah logout
+        });
+    </script>
+</body>
+</html>

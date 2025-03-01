@@ -1,0 +1,55 @@
+/* Mengatur body agar tidak ada scroll */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Menyusun konten di tengah secara horizontal */
+    align-items: center; /* Menyusun konten di tengah secara vertikal */
+    background-color: #f4f4f4;
+    overflow: hidden; /* Menghilangkan scroll di seluruh halaman */
+}
+
+/* Kontainer utama yang meniru ukuran layar HP */
+.phone-screen {
+    width: 100%;
+    height: 100%;
+    max-width: 375px;  /* Lebar maksimal ponsel */
+    max-height: 667px; /* Tinggi maksimal ponsel */
+    position: relative; /* Untuk menempatkan tombol di bawah gambar */
+}
+
+/* Gambar latar belakang */
+.background {
+    background-image: url('backroundindex.jpg'); /* Ganti dengan path gambar latar belakang */
+    background-size: cover;  /* Agar gambar menutupi seluruh layar */
+    background-position: center;  /* Posisi gambar di tengah */
+    background-repeat: no-repeat; /* Mencegah gambar terulang */
+    height: 100vh;  /* Menutupi seluruh tinggi layar */
+    width: 100vw;   /* Menutupi seluruh lebar layar */
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Tampilan tombol */
+.ajukan-btn {
+    padding: 15px 30px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 20px; /* Memberikan jarak dari bawah */
+    left: 50%;
+    transform: translateX(-50%); /* Menyusun tombol di tengah horizontal */
+    transition: background-color 0.3s;
+}
+
+/* Efek hover tombol */
+.ajukan-btn:hover {
+    background-color: #45a049;
+}
